@@ -6,7 +6,7 @@ public class Student {
     private int age;
     private double averageScore;
 
-    public Student(String name , int age , int averageScore){
+    public Student(String name , int age , double averageScore){
         this.name = name;
         this.age = age;
         this.averageScore = averageScore;
