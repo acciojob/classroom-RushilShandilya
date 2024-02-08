@@ -11,7 +11,7 @@ import java.util.UUID;
 public class StudentRepository {
     HashMap<UUID,Student> studentDB;
     HashMap<UUID,Teacher> teacherDB;
-    HashMap<Student,Teacher> studentTeacherPair;
+    HashMap<Teacher,List<Student>> studentTeacherPair;
 
     public StudentRepository(){
         studentDB = new HashMap<>();
@@ -38,24 +38,43 @@ public class StudentRepository {
     }
 
     public List<String> getListOfStudentsUnderTeacher(String teacher){
-        List<String> getList = new ArrayList<>();
-        for(Student student : studentTeacherPair.keySet()) if(studentTeacherPair.get(student).getName().equals(teacher)) getList.add(student.getName());
-        return getList;
+        Teacher obj = null;
+
+        for(UUID teacherID : teacherDB.keySet()) if(teacherDB.get(teacherID).getName().equals(teacher)) obj = teacherDB.get(teacherID);
+        List<Student> list = studentTeacherPair.get(obj);
+        List<String> ansList = new ArrayList<>();
+        for(Student student : list) ansList.add(student.getName());
+        return ansList;
     }
     public void addStudentToTeacher(String student,String teacher){
-        UUID getStudentUUID = null, getTeacherUUID = null;
-        if(!studentDB.isEmpty())for(UUID studentID : studentDB.keySet()) if(studentDB.get(studentID).getName().equals(student)) getStudentUUID = studentID;
-        if(!teacherDB.isEmpty())for(UUID teacherID : teacherDB.keySet()) if(teacherDB.get(teacherID).getName().equals(teacher)) getTeacherUUID = teacherID;
-        
-        studentTeacherPair.put(studentDB.get(getStudentUUID),teacherDB.get(getTeacherUUID));
+        Teacher teacherObj = null ;
+        Student studentObj = null;
+
+        if(!studentDB.isEmpty())for(UUID studentID : studentDB.keySet()) if(studentDB.get(studentID).getName().equals(student)) studentObj = studentDB.get(studentID);
+        if(!teacherDB.isEmpty())for(UUID teacherID : teacherDB.keySet()) if(teacherDB.get(teacherID).getName().equals(teacher)) teacherObj = teacherDB.get(teacherID);
+
+        if(studentTeacherPair.get(teacherObj).isEmpty()) studentTeacherPair.put(teacherObj, new ArrayList<>());
+
+        List<Student> temp = studentTeacherPair.get(teacherObj);
+        temp.add(studentObj);
     }
     public void deleteTeacherByName(String teacher){
-       List<String> studentNames = new ArrayList<>();
-       UUID getUUID = null;
-       for(Student student : studentTeacherPair.keySet()) if(studentTeacherPair.get(student).getName().equals(teacher)) studentNames.add(student.getName());
-       for(String studentName : studentNames) for(UUID studentID : studentDB.keySet()) if(studentDB.get(studentID).getName().equals(studentName))studentDB.remove(studentID);
-       for(UUID teacherID : teacherDB.keySet()) if(teacherDB.get(teacherID).getName().equals(teacher)) getUUID = teacherID;
-       teacherDB.remove(getUUID);
+        UUID getTeacherID = null;
+        Teacher teacherObj = null;
+
+        for(UUID teacherID : teacherDB.keySet())
+            if(teacherDB.get(teacherID).getName().equals(teacher)){
+                getTeacherID = teacherID;
+                teacherObj = teacherDB.get(teacherID);
+            }
+
+        List<Student> getStudentList = studentTeacherPair.get(teacherObj);
+        List<UUID> studentIDS = new ArrayList<>();
+        for(Student student : getStudentList) for(UUID studentID : studentDB.keySet()) if(studentDB.get(studentID).getName().equals(student.getName()))studentIDS.add(studentID);
+        for(UUID studentId : studentIDS) studentDB.remove(studentId);
+
+        teacherDB.remove(getTeacherID);
+        studentTeacherPair.remove(teacherObj);
     }
     public void deleteAllTeachers(){
         studentTeacherPair.clear();
