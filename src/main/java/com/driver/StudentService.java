@@ -12,11 +12,11 @@ public class StudentService {
         studentRepository = new StudentRepository();
     }
     public void addStudent(Student student){
-        student.setStudentID(UUID.randomUUID());
+        //student.setStudentID(UUID.randomUUID());
         studentRepository.addStudent(student);
     }
     public void addTeacher(Teacher teacher){
-        teacher.setTeacherID(UUID.randomUUID());
+        //teacher.setTeacherID(UUID.randomUUID());
         studentRepository.addTeacher(teacher);
     }
     public List<String> getAllStudent(){

@@ -16,10 +16,10 @@ public class StudentRepository {
         teacherDB = new HashMap<>();
     }
     public void addStudent(Student student){
-        studentDB.put(student.getStudentID(),student);
+        studentDB.put(UUID.randomUUID(),student);
     }
     public void addTeacher(Teacher teacher){
-        teacherDB.put(teacher.getTeacherID(),teacher);
+        teacherDB.put(UUID.randomUUID(),teacher);
     }
 
     public List<String> getAllStudent(){

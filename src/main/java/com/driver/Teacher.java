@@ -6,23 +6,21 @@ import java.util.UUID;
 
 public class Teacher {
 
-    private UUID teacherID;
+    //private UUID teacherID;
     private String name;
     private int numberOfStudents;
     private int age;
     List<Student> listOfStudents;
 
-    public Teacher(UUID teacherID , String name , int numberOfStudents , int age , List<Student> listOfStudents) {
-        this.teacherID = teacherID;
+    public Teacher(/*UUID teacherID ,*/ String name , int numberOfStudents , int age , List<Student> listOfStudents) {
+        //this.teacherID = teacherID;
         this.name = name;
         this.numberOfStudents = numberOfStudents;
         this.age = age;
         this.listOfStudents = new ArrayList<>();
     }
 
-    public void setTeacherID(UUID teacherID) {
-        this.teacherID = teacherID;
-    }
+    //public void setTeacherID(UUID teacherID) {this.teacherID = teacherID;}
     public void setName(String name) {
         this.name = name;
     }
@@ -34,7 +32,7 @@ public class Teacher {
     }
 
 
-    public UUID getTeacherID(){return this.teacherID;}
+    //public UUID getTeacherID(){return this.teacherID;}
     public String getName() {return this.name;}
     public int getNumberOfStudents() {return this.numberOfStudents;}
     public int getAge(){return this.age;}
