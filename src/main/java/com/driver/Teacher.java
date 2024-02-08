@@ -12,7 +12,7 @@ public class Teacher {
     private int age;
     List<Student> listOfStudents;
 
-    public Teacher(/*UUID teacherID ,*/ String name , int numberOfStudents , int age , List<Student> listOfStudents) {
+    public Teacher(/*UUID teacherID ,*/ String name , int numberOfStudents , int age /*List<Student> listOfStudents*/) {
         //this.teacherID = teacherID;
         this.name = name;
         this.numberOfStudents = numberOfStudents;
