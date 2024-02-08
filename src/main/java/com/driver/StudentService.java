@@ -22,9 +22,6 @@ public class StudentService {
     public List<String> getAllStudent(){
         return studentRepository.getAllStudent();
     }
-    public List<String> getAllTeacher(){
-        return studentRepository.getAllTeacher();
-    }
     public Student getStudentDetails(String name){
         return studentRepository.getStudentDetails(name);
     }
