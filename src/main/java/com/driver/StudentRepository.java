@@ -11,9 +11,12 @@ import java.util.UUID;
 public class StudentRepository {
     HashMap<UUID,Student> studentDB;
     HashMap<UUID,Teacher> teacherDB;
+    HashMap<Student,Teacher> studentTeacherPair;
+
     public StudentRepository(){
         studentDB = new HashMap<>();
         teacherDB = new HashMap<>();
+        studentTeacherPair = new HashMap<>();
     }
     public void addStudent(Student student){
         studentDB.put(UUID.randomUUID(),student);
@@ -43,21 +46,15 @@ public class StudentRepository {
 
     public List<String> getListOfStudentsUnderTeacher(String teacher){
         List<String> getList = new ArrayList<>();
-        for(UUID teacherID : teacherDB.keySet()){
-            if(teacherDB.get(teacherID).getName().equals(teacher)){
-                List<Student> studentList = teacherDB.get(teacherID).getListOfStudents();
-                for(Student student : studentList) getList.add(student.getName());
-            }
-        }
+        for(Student student : studentTeacherPair.keySet()) if(studentTeacherPair.get(student).getName().equals(teacher)) getList.add(student.getName());
         return getList;
     }
-    public void addStudentToTeacher(String teacher , String student){
-        for(UUID teacherID : teacherDB.keySet()){
-            if(teacherDB.get(teacherID).getName().equals(teacher)){
-                List<Student> list = teacherDB.get(teacherID).getListOfStudents();
-                list.add(getStudentDetails(student));
-            }
-        }
+    public void addStudentToTeacher(String student,String teacher){
+        UUID getStudentUUID = null, getTeacherUUID = null;
+        for(UUID studentID : studentDB.keySet()) if(studentDB.get(studentID).getName().equals(student)) getStudentUUID = studentID;
+        for(UUID teacherID : teacherDB.keySet()) if(teacherDB.get(teacherID).getName().equals(teacher)) getTeacherUUID = teacherID;
+        
+        studentTeacherPair.put(studentDB.get(getStudentUUID),teacherDB.get(getTeacherUUID));
     }
     public void deleteTeacherByName(String teacher){
         for(UUID teacherID : teacherDB.keySet())if(teacherDB.get(teacherID).getName().equals(teacher)) teacherDB.remove(teacherID);
