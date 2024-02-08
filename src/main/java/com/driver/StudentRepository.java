@@ -50,11 +50,15 @@ public class StudentRepository {
         studentTeacherPair.put(studentDB.get(getStudentUUID),teacherDB.get(getTeacherUUID));
     }
     public void deleteTeacherByName(String teacher){
-        UUID getUUIDToRemove = null;
-        if(!teacherDB.isEmpty()) for(UUID teacherID : teacherDB.keySet()) if(teacherDB.get(teacherID).getName().equals(teacher)) getUUIDToRemove = teacherID;
-        teacherDB.remove(getUUIDToRemove);
+       List<String> studentNames = new ArrayList<>();
+       UUID getUUID = null;
+       for(Student student : studentTeacherPair.keySet()) if(studentTeacherPair.get(student).getName().equals(teacher)) studentNames.add(student.getName());
+       for(String studentName : studentNames) for(UUID studentID : studentDB.keySet()) if(studentDB.get(studentID).getName().equals(studentName))studentDB.remove(studentID);
+       for(UUID teacherID : teacherDB.keySet()) if(teacherDB.get(teacherID).getName().equals(teacher)) getUUID = teacherID;
+       teacherDB.remove(getUUID);
     }
     public void deleteAllTeachers(){
+        studentTeacherPair.clear();
         teacherDB.clear();
         studentDB.clear();
     }

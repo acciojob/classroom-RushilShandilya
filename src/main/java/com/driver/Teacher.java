@@ -10,14 +10,14 @@ public class Teacher {
     private String name;
     private int numberOfStudents;
     private int age;
-    List<Student> listOfStudents;
+    //List<Student> listOfStudents;
 
     public Teacher(/*UUID teacherID ,*/ String name , int numberOfStudents , int age /*List<Student> listOfStudents*/) {
         //this.teacherID = teacherID;
         this.name = name;
         this.numberOfStudents = numberOfStudents;
         this.age = age;
-        this.listOfStudents = new ArrayList<>();
+        //this.listOfStudents = new ArrayList<>();
     }
 
     //public void setTeacherID(UUID teacherID) {this.teacherID = teacherID;}
@@ -36,5 +36,5 @@ public class Teacher {
     public String getName() {return this.name;}
     public int getNumberOfStudents() {return this.numberOfStudents;}
     public int getAge(){return this.age;}
-    public List<Student> getListOfStudents(){return this.listOfStudents;}
+    //public List<Student> getListOfStudents(){return this.listOfStudents;}
 }
