@@ -30,6 +30,7 @@ public class StudentRepository {
         if(studentTeacherPair.isEmpty() || !studentTeacherPair.containsKey(teacher)) studentTeacherPair.put(teacher,new ArrayList<>());
         List<String> studentList = studentTeacherPair.get(teacher);
         studentList.add(student);
+        studentTeacherPair.put(teacher,studentList);
     }
     public Teacher getTeacherDetails(String name){return teacherDB.get(name);}
     public List<String> getListOfStudentsUnderTeacher(String teacher){return studentTeacherPair.get(teacher);}
